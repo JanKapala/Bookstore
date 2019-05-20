@@ -3,5 +3,7 @@ This repository contains assignment for distributed systems course on AGH Univer
 
 Notes:
 * Required java version: 1.8
-* Akka 2.5.1 included
+* Included libraries:
+  * Akka 2.5.1
+  * opencsv 4.6
 * IntelliJ project
