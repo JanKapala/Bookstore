@@ -2,6 +2,7 @@
   <library name="libs_2.5">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/libs_2.5.1" />
+      <root url="file://$PROJECT_DIR$/libs" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/libs_2.5.1/akka-actor_2.11-2.5.1-javadoc.jar!/" />
@@ -12,6 +13,7 @@
       <root url="jar://$PROJECT_DIR$/libs_2.5.1/netty-3.10.6.Final-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/libs_2.5.1" recursive="false" />
   </library>
 </component>

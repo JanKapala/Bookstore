@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="936145d9-639c-41ea-acdc-38d89def947c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Servant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Servant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/opencsv_4_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/books/Iliad.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/books/Odyssey.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/orders.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/prices.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/DatabaseAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/libs_2_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/libs_2_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookstore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -93,42 +99,36 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="csv" value="2" />
           <entry key="iml" value="1" />
-          <entry key="java" value="6" />
+          <entry key="java" value="7" />
+          <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="6" />
+          <entry key="JAVA" value="7" />
+          <entry key="PLAIN_TEXT" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="696" />
+          <entry key="csv" value="59" />
+          <entry key="java" value="989" />
+          <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="696" />
+          <entry key="JAVA" value="989" />
+          <entry key="PLAIN_TEXT" value="60" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Bookstore.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Dispatcher.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -143,14 +143,62 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Servant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="61" column="22" lean-forward="true" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
+            <state relative-caret-position="281">
+              <caret line="85" column="20" selection-start-line="85" selection-start-column="20" selection-end-line="87" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/DatabaseAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="47" column="4" lean-forward="true" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/books/Iliad.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="60" lean-forward="true" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/books/Odyssey.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/prices.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/orders.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -223,6 +271,11 @@
         <option value="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Customer.java" />
         <option value="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Client.java" />
         <option value="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Servant.java" />
+        <option value="$PROJECT_DIR$/database/books/Iliad.txt" />
+        <option value="$PROJECT_DIR$/database/books/Odyssey.txt" />
+        <option value="$PROJECT_DIR$/database/orders.csv" />
+        <option value="$PROJECT_DIR$/database/prices.csv" />
+        <option value="$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/DatabaseAdapter.java" />
       </list>
     </option>
   </component>
@@ -255,6 +308,17 @@
             <path>
               <item name="akka" type="b2602c69:ProjectViewProjectNode" />
               <item name="akka" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="akka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="akka" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="books" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="akka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="akka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -278,12 +342,17 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558355153709" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558357505136" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/opencsv-4.6.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\janka\Desktop\akka\libs" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -297,7 +366,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Customer">
+  <component name="RunManager" selected="Application.DatabaseAdapter">
     <configuration name="Bookstore" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.distributedsystems.akka.bookstore.Bookstore" />
       <module name="bookstore" />
@@ -307,6 +376,19 @@
     </configuration>
     <configuration name="Customer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.distributedsystems.akka.bookstore.Customer" />
+      <module name="bookstore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.distributedsystems.akka.bookstore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DatabaseAdapter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.distributedsystems.akka.bookstore.DatabaseAdapter" />
       <module name="bookstore" />
       <extension name="coverage">
         <pattern>
@@ -359,9 +441,11 @@
       <item itemvalue="Application.Z2_Local" />
       <item itemvalue="Application.Bookstore" />
       <item itemvalue="Application.Customer" />
+      <item itemvalue="Application.DatabaseAdapter" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DatabaseAdapter" />
         <item itemvalue="Application.Customer" />
         <item itemvalue="Application.Bookstore" />
         <item itemvalue="Application.Z2_Local" />
@@ -384,18 +468,18 @@
       <workItem from="1558304678381" duration="4342000" />
       <workItem from="1558326233169" duration="19580000" />
       <workItem from="1558349938034" duration="947000" />
-      <workItem from="1558353333568" duration="1809000" />
+      <workItem from="1558353333568" duration="4148000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31561000" />
+    <option name="totallyTimeSpent" value="33900000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19727892" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19727892" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -404,7 +488,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891247" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29310346" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29310346" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -458,6 +542,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -472,6 +559,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -479,6 +569,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -507,6 +600,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -576,10 +672,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/database/books/Odyssey.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/books/Iliad.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="60" lean-forward="true" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/prices.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/Servant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="61" column="22" lean-forward="true" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
+        <state relative-caret-position="281">
+          <caret line="85" column="20" selection-start-line="85" selection-start-column="20" selection-end-line="87" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/orders.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/distributedsystems/akka/bookstore/DatabaseAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="47" column="4" lean-forward="true" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
