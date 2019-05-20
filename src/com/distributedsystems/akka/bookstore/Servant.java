@@ -1,7 +1,6 @@
 package com.distributedsystems.akka.bookstore;
 
 import akka.actor.AbstractActor;
-import akka.actor.Actor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.event.Logging;
@@ -9,6 +8,10 @@ import akka.event.LoggingAdapter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Servant extends AbstractActor {
     static public Props props(ActorRef client_ref) {
@@ -56,6 +59,8 @@ public class Servant extends AbstractActor {
 
     // TODO stream text messages
 
+    // Messages router
+
     @Override
     public Receive createReceive() {
         return receiveBuilder()
@@ -75,6 +80,20 @@ public class Servant extends AbstractActor {
                         this.client_ref.tell(price, getSelf());
                         log.info("Sent no such position flag");
                     }
+                })
+                .match(Order.class, order -> {
+                    // TODO Add log in orders DB
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    Date date = new Date();
+                    String formatted_date = dateFormat.format(date);
+
+                    String price = "79.99";
+
+                    String order_confirmation = "Confirmation of " + order.title + " purchase for $" + price + " at "
+                            + formatted_date;
+                    OrderConfirmation confirmation = new OrderConfirmation(order_confirmation);
+                    this.client_ref.tell(confirmation, getSelf());
+                    log.info("Sent order confirmation");
                 })
                 .build();
     }

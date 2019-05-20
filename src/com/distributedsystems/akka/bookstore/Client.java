@@ -37,6 +37,7 @@ public class Client extends AbstractActor{
         System.out.println("Client created");
     }
 
+    // Messages Router
     @Override
     public Receive createReceive() {
         return receiveBuilder()
@@ -51,6 +52,13 @@ public class Client extends AbstractActor{
                     else{
                         log.info("The price of this position is: " + price.value);
                     }
+                })
+                .match(Servant.Order.class, order ->{
+                    this.servant.tell(order, getSelf());
+                    System.out.println("Sent Order request with title: " + order.title);
+                })
+                .match(Servant.OrderConfirmation.class, confirmation -> {
+                    System.out.println("Received: " + confirmation.content);
                 })
                 .matchAny(o -> log.info("Invalid request"))
                 .build();

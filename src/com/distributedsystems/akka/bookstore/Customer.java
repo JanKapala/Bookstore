@@ -45,19 +45,34 @@ public class Customer {
         ActorRef client = system.actorOf(Client.props(dispatcher_remote_path), "client");
 
         // TODO finish up interaction loop
-        System.out.println("Type one of commands: [find, exit]");
+        System.out.println("Type one of commands: [find, stream, order, exit]");
         while(true){
             String command = scanner.nextLine();
+
             if(command.equals("find")){
                 System.out.println("Type a title of the book which price you want find:");
                 String title = scanner.nextLine();
                 Servant.Find find = new Servant.Find(title);
                 client.tell(find, ActorRef.noSender());
             }
+            else if(command.equals("stream")){
+                System.out.println("Type a title of the book which text you want stream:");
+                String title = scanner.nextLine();
+                // TODO
+                System.out.println("Sorry, functionality missing, it's TODO section");
+            }
+            else if(command.equals("order")){
+                // TODO
+                System.out.println("Type a title of the book which you want order:");
+                String title = scanner.nextLine();
+                Servant.Order order = new Servant.Order(title);
+                client.tell(order, ActorRef.noSender());
+            }
             else if(command.equals("exit")){
                 system.terminate();
                 System.exit(0);
             }
+
             else{
                 System.out.println("Invalid command, try again");
             }
