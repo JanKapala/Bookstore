@@ -1,4 +1,4 @@
-package com.distributedsystems.akka.bookstore;
+package com.distributedsystems.akka.bookstore.Bookstore;
 
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
@@ -10,18 +10,17 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
-public class Servant extends AbstractActor {
+public class ServantActor extends AbstractActor {
     static public Props props(ActorRef client_ref) {
-        return Props.create(Servant.class, () -> new Servant(client_ref));
+        return Props.create(ServantActor.class, () -> new ServantActor(client_ref));
     }
 
     private LoggingAdapter log;
     private ActorRef client_ref;
 
-    public Servant(ActorRef client_ref){
+    public ServantActor(ActorRef client_ref){
         this.log = Logging.getLogger(getContext().getSystem(), this);
         this.client_ref = client_ref;
     }

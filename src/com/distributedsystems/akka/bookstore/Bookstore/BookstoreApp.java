@@ -1,16 +1,14 @@
-package com.distributedsystems.akka.bookstore;
+package com.distributedsystems.akka.bookstore.Bookstore;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Address;
-import akka.actor.AddressFromURIString;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 import java.io.IOException;
-import java.util.Scanner;
 
-public class Bookstore {
+public class BookstoreApp {
     public static void main(String[] args) {
 
         String basic_system_name = "bookStoreSystem";
@@ -39,12 +37,12 @@ public class Bookstore {
         final ActorSystem system = ActorSystem.create(system_name, config);
 
         // Create dispatcher
-        ActorRef dispatcher = system.actorOf(Dispatcher.props(bookstore_name), dispatcher_name);
+        ActorRef dispatcher = system.actorOf(DispatcherActor.props(bookstore_name), dispatcher_name);
 
         // Display dispatcher address
         Address dispatcher_address = new Address("akka.tcp", system_name, hostname, port_number);
         String dispatcher_remote_path = dispatcher_address.toString() + "/user/" + dispatcher_name;
-        System.out.println("Dispatcher remote path: " + dispatcher_remote_path);
+        System.out.println("DispatcherActor remote path: " + dispatcher_remote_path);
 
 
         // Exit

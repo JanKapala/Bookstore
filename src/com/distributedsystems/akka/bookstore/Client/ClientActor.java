@@ -1,4 +1,4 @@
-package com.distributedsystems.akka.bookstore;
+package com.distributedsystems.akka.bookstore.Client;
 
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
@@ -8,44 +8,46 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
+import com.distributedsystems.akka.bookstore.Bookstore.DispatcherActor;
+import com.distributedsystems.akka.bookstore.Bookstore.ServantActor;
 import scala.concurrent.Future;
 import scala.concurrent.Await;
 import scala.concurrent.duration.Duration;
 
-public class Client extends AbstractActor{
+public class ClientActor extends AbstractActor{
     static public Props props(String dispatcher_remote_path) {
-        return Props.create(Client.class, () -> new Client(dispatcher_remote_path));
+        return Props.create(ClientActor.class, () -> new ClientActor(dispatcher_remote_path));
     }
 
     private LoggingAdapter log;
     private ActorRef servant;
 
-    public Client(String dispatcher_remote_path){
+    public ClientActor(String dispatcher_remote_path){
         this.log = Logging.getLogger(getContext().getSystem(), this);
 
         // Get servant from bookstore dispatcher
         ActorSelection dispatcher = getContext().actorSelection(dispatcher_remote_path);
         Timeout timeout = new Timeout(Duration.create(5, "seconds"));
-        Future<Object> future = Patterns.ask(dispatcher, new Dispatcher.GetServant(getSelf()), timeout);
+        Future<Object> future = Patterns.ask(dispatcher, new DispatcherActor.GetServant(getSelf()), timeout);
         try {
-            Dispatcher.ServantRef result = (Dispatcher.ServantRef) Await.result(future, timeout.duration());
+            DispatcherActor.ServantRef result = (DispatcherActor.ServantRef) Await.result(future, timeout.duration());
             this.servant = result.ref;
-            System.out.println("Servant obtained: " + this.servant);
+            System.out.println("ServantActor obtained: " + this.servant);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Client created");
+        System.out.println("ClientActor created");
     }
 
     // Messages Router
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(Servant.Find.class, find ->{
+                .match(ServantActor.Find.class, find ->{
                     this.servant.tell(find, getSelf());
                     System.out.println("Sent Find request with title: " + find.title);
                 })
-                .match(Servant.Price.class, price ->{
+                .match(ServantActor.Price.class, price ->{
                     if(price == null){
                         log.info("No such position");
                     }
@@ -53,11 +55,11 @@ public class Client extends AbstractActor{
                         log.info("The price of this position is: " + price.value);
                     }
                 })
-                .match(Servant.Order.class, order ->{
+                .match(ServantActor.Order.class, order ->{
                     this.servant.tell(order, getSelf());
                     System.out.println("Sent Order request with title: " + order.title);
                 })
-                .match(Servant.OrderConfirmation.class, confirmation -> {
+                .match(ServantActor.OrderConfirmation.class, confirmation -> {
                     System.out.println("Received: " + confirmation.content);
                 })
                 .matchAny(o -> log.info("Invalid request"))

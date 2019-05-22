@@ -1,17 +1,14 @@
-package com.distributedsystems.akka.bookstore;
+package com.distributedsystems.akka.bookstore.Client;
 
 import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
-import akka.actor.Props;
+import com.distributedsystems.akka.bookstore.Bookstore.ServantActor;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
-public class Customer {
+public class ClientApp {
     public static void main(String[] args) {
         String basic_system_name = "clientSystem";
         int port_number = 3002;
@@ -41,8 +38,8 @@ public class Customer {
         Scanner scanner = new Scanner(System.in);
         String dispatcher_remote_path = scanner.nextLine();
 
-        // Create Client
-        ActorRef client = system.actorOf(Client.props(dispatcher_remote_path), "client");
+        // Create ClientActor
+        ActorRef client = system.actorOf(ClientActor.props(dispatcher_remote_path), "client");
 
         // TODO finish up interaction loop
         System.out.println("Type one of commands: [find, stream, order, exit]");
@@ -52,7 +49,7 @@ public class Customer {
             if(command.equals("find")){
                 System.out.println("Type a title of the book which price you want find:");
                 String title = scanner.nextLine();
-                Servant.Find find = new Servant.Find(title);
+                ServantActor.Find find = new ServantActor.Find(title);
                 client.tell(find, ActorRef.noSender());
             }
             else if(command.equals("stream")){
@@ -65,7 +62,7 @@ public class Customer {
                 // TODO
                 System.out.println("Type a title of the book which you want order:");
                 String title = scanner.nextLine();
-                Servant.Order order = new Servant.Order(title);
+                ServantActor.Order order = new ServantActor.Order(title);
                 client.tell(order, ActorRef.noSender());
             }
             else if(command.equals("exit")){
