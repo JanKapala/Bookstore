@@ -7,3 +7,7 @@ Notes:
   * Akka 2.5.1
   * opencsv 4.6
 * JetBrains IntelliJ project structure
+
+## Architecture
+![Alt text](./BookstoreArchitecture.svg)
+<img src="./BookstoreArchitecture.svg">
