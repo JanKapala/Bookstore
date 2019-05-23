@@ -11,12 +11,19 @@ import java.io.IOException;
 public class BookstoreApp {
     public static void main(String[] args) {
 
+        // Config
         String basic_system_name = "bookStoreSystem";
         int port_number = 3001;
         String system_name = basic_system_name + "_" + port_number;
         String hostname = "127.0.0.1";
+
+        // Dispatcher
         String dispatcher_name = "main_dispatcher";
-        String bookstore_name = "matras";
+
+        // Databases
+        String databases_root_path = System.getProperty("user.dir") + "\\databases";
+        String db1_root_path = databases_root_path + "\\database_1";
+        String db2_root_path = databases_root_path + "\\database_2";
 
         // Config creation for remoting purpose
         Config config = ConfigFactory.parseString(String.format(
@@ -37,7 +44,7 @@ public class BookstoreApp {
         final ActorSystem system = ActorSystem.create(system_name, config);
 
         // Create dispatcher
-        ActorRef dispatcher = system.actorOf(DispatcherActor.props(bookstore_name), dispatcher_name);
+        ActorRef dispatcher = system.actorOf(DispatcherActor.props(db1_root_path, db2_root_path), dispatcher_name);
 
         // Display dispatcher address
         Address dispatcher_address = new Address("akka.tcp", system_name, hostname, port_number);

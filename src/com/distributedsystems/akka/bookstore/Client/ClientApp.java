@@ -59,7 +59,6 @@ public class ClientApp {
                 System.out.println("Sorry, functionality missing, it's TODO section");
             }
             else if(command.equals("order")){
-                // TODO
                 System.out.println("Type a title of the book which you want order:");
                 String title = scanner.nextLine();
                 ServantActor.Order order = new ServantActor.Order(title);

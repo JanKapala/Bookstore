@@ -8,35 +8,50 @@ import akka.event.LoggingAdapter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ServantActor extends AbstractActor {
-    static public Props props(ActorRef client_ref) {
-        return Props.create(ServantActor.class, () -> new ServantActor(client_ref));
+    static public Props props(ActorRef client_ref, ActorRef writer, String db1_root_path, String db2_root_path) {
+        return Props.create(ServantActor.class, () -> new ServantActor(client_ref, writer, db1_root_path, db2_root_path));
     }
 
     private LoggingAdapter log;
     private ActorRef client_ref;
+    private String db1_root_path;
+    private String db2_root_path;
+    private ActorRef finder1;
+    private ActorRef finder2;
+    private ActorRef writer;
+    private Set<Integer> find_requests_hashes;
 
-    public ServantActor(ActorRef client_ref){
+    public ServantActor(ActorRef client_ref, ActorRef writer, String db1_root_path, String db2_root_path){
         this.log = Logging.getLogger(getContext().getSystem(), this);
         this.client_ref = client_ref;
+        this.db1_root_path = db1_root_path;
+        this.db2_root_path = db2_root_path;
+        this.writer = writer;
+        this.find_requests_hashes = new HashSet<>();
     }
 
     // Messages
     static public class Find implements Serializable {
         public final String title;
+        public Integer hashCode;
+
         public Find(String title){
             this.title = title;
+            this.hashCode = null;
         }
     }
 
     static public class Price implements Serializable{
         public final BigDecimal value;
+        public Integer hashcode;
 
-        public Price(BigDecimal value){
+        public Price(BigDecimal value, Integer hashcode){
+            this.hashcode = hashcode;
             this.value = value;
         }
     }
@@ -64,35 +79,31 @@ public class ServantActor extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(Find.class, find -> {
-                    log.info("Received getServant");
+                    this.finder1 = getContext().actorOf(FinderActor.props(this.db1_root_path), "finder1");
+                    this.finder2 = getContext().actorOf(FinderActor.props(this.db2_root_path), "finder2");
 
-                    // TODO Find title in the database
-                    // placeholder:
-                    String title = "Iliada";
-                    if(find.title.toLowerCase().equals(title.toLowerCase())) {
-                        Price price = new Price(new BigDecimal(320));
+                    Date date = new Date();
+                    Integer hashCode = date.hashCode();
+                    this.find_requests_hashes.add(hashCode);
+                    find.hashCode = hashCode;
+
+                    finder1.tell(find, getSelf());
+                    finder2.tell(find, getSelf());
+                })
+                .match(Price.class, price->{
+                    getContext().stop(finder1);
+                    getContext().stop(finder2);
+
+                    if(find_requests_hashes.contains(price.hashcode)){
+                        find_requests_hashes.remove(price.hashcode);
                         this.client_ref.tell(price, getSelf());
-                        log.info("Sent price: " + price.value);
-                    }
-                    else {
-                        Price price = null;
-                        this.client_ref.tell(price, getSelf());
-                        log.info("Sent no such position flag");
                     }
                 })
                 .match(Order.class, order -> {
-                    // TODO Add log in orders DB
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    Date date = new Date();
-                    String formatted_date = dateFormat.format(date);
-
-                    String price = "79.99";
-
-                    String order_confirmation = "Confirmation of " + order.title + " purchase for $" + price + " at "
-                            + formatted_date;
-                    OrderConfirmation confirmation = new OrderConfirmation(order_confirmation);
+                    this.writer.tell(order, getSelf());
+                })
+                .match(OrderConfirmation.class, confirmation -> {
                     this.client_ref.tell(confirmation, getSelf());
-                    log.info("Sent order confirmation");
                 })
                 .build();
     }

@@ -9,16 +9,21 @@ import akka.event.LoggingAdapter;
 import java.io.Serializable;
 
 public class DispatcherActor extends AbstractActor {
-    static public Props props(String bookstore_name) {
-        return Props.create(DispatcherActor.class, () -> new DispatcherActor(bookstore_name));
+    static public Props props(String db1_root_path, String db2_root_path) {
+        return Props.create(DispatcherActor.class, () -> new DispatcherActor(db1_root_path, db2_root_path));
     }
 
-    private String bookstore_name = "";
     private LoggingAdapter log;
+    private String db1_root_path;
+    private String db2_root_path;
+    private ActorRef writer;
 
-    public DispatcherActor(String bookstore_name){
+
+    public DispatcherActor(String db1_root_path, String db2_root_path){
         this.log = Logging.getLogger(getContext().getSystem(), this);
-        this.bookstore_name = bookstore_name;
+        this.db1_root_path = db1_root_path;
+        this.db2_root_path = db2_root_path;
+        this.writer = getContext().actorOf(WriterActor.props(this.db1_root_path));
     }
 
     // Messages
@@ -44,7 +49,10 @@ public class DispatcherActor extends AbstractActor {
                     log.info("Received getServant from: " + getSender());
 
                     // Create individual servant for the client
-                    ActorRef servant = getContext().actorOf(ServantActor.props(getServant.client_ref), "servant");
+                    ActorRef servant = getContext().actorOf(ServantActor.props(getServant.client_ref,
+                                                                               this.writer,
+                                                                               this.db1_root_path,
+                                                                               this.db2_root_path), "servant");
                     System.out.println("ServantActor path: " + servant.path());
 
                     // Send servant reference to the client

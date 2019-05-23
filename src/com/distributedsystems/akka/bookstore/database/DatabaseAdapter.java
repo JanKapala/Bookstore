@@ -4,12 +4,13 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,30 +23,31 @@ public class DatabaseAdapter {
     private File books_file;
 
     public static void main(String[] args){
-        String database_root_path = System.getProperty("user.dir") + "\\databases\\database_1";
-        DatabaseAdapter databaseAdapter = new DatabaseAdapter(database_root_path);
+//        String database_root_path = System.getProperty("user.dir") + "\\databases\\database_1";
+//        DatabaseAdapter databaseAdapter = new DatabaseAdapter(database_root_path);
+//
+//        databaseAdapter.reset();
+//        databaseAdapter.initialize();
+//
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Type the name of the book that you want find:");
+//        String title = scanner.nextLine();
+//
+//        Book book = databaseAdapter.findBook(title);
+//        System.out.println(book);
+//
+//        System.out.println("The price of this book is: " + databaseAdapter.getPrice(book.getTitle()));
+//
+//        System.out.println("If you want order this book enter: 'y' ");
+//        String flag = scanner.nextLine();
+//        while(flag.equals("y")){
+//            databaseAdapter.order(book.getTitle());
+//            System.out.println("If you want order this book again enter 'y' ");
+//            flag = scanner.nextLine();
+//        }
+//
+//        System.out.println("Thank you for using this service, bye ;)");
 
-        databaseAdapter.reset();
-        databaseAdapter.initialize();
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Type the name of the book that you want find:");
-        String title = scanner.nextLine();
-
-        Book book = databaseAdapter.findBook(title);
-        System.out.println(book);
-
-        System.out.println("The price of this book is: " + databaseAdapter.getPrice(book.getTitle()));
-
-        System.out.println("If you want order this book enter: 'y' ");
-        String flag = scanner.nextLine();
-        while(flag.equals("y")){
-            databaseAdapter.order(book.getTitle());
-            System.out.println("If you want order this book again enter 'y' ");
-            flag = scanner.nextLine();
-        }
-
-        System.out.println("Thank you for using this service, bye ;)");
     }
 
     public DatabaseAdapter(String database_root_path){
@@ -116,7 +118,7 @@ public class DatabaseAdapter {
                     // Price
                     Random generator = new Random();
                     Integer random_int = generator.nextInt(300) + 50;
-                    BigInteger price = new BigInteger(random_int.toString());
+                    BigDecimal price = new BigDecimal(random_int.toString());
 
                     // Save
                     Book book = new Book(title, price);
@@ -164,7 +166,7 @@ public class DatabaseAdapter {
             String[] nextLine;
             while ((nextLine = csvreader.readNext()) != null) {
                 if(title.equals(nextLine[0])){
-                    BigInteger price = new BigInteger(nextLine[1]);
+                    BigDecimal price = new BigDecimal(nextLine[1]);
                     book = new Book(title, price);
                     break;
                 }
@@ -177,13 +179,13 @@ public class DatabaseAdapter {
         return book;
     }
 
-    public BigInteger getPrice(String title){
+    public BigDecimal getPrice(String title){
         Book book = findBook(title);
         if(book != null) return book.getPrice();
         return null;
     }
 
-    public void order(String title){
+    public Order order(String title){
         Date date = new Date();
         Book book = findBook(title);
         Order order = new Order(book, date);
@@ -196,6 +198,7 @@ public class DatabaseAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return order;
 
     }
 //

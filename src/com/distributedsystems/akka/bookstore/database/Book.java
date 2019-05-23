@@ -1,12 +1,13 @@
 package com.distributedsystems.akka.bookstore.database;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Book {
     private String title;
-    private BigInteger price;
+    private BigDecimal price;
 
-    public Book(String title, BigInteger price){
+    public Book(String title, BigDecimal price){
         this.title = title;
         this.price = price;
     }
@@ -19,11 +20,11 @@ public class Book {
         this.title = name;
     }
 
-    public BigInteger getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigInteger price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
