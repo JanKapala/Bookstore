@@ -10,4 +10,3 @@ Notes:
 
 ## Architecture
 ![Alt text](./BookstoreArchitecture.svg)
-<img src="./BookstoreArchitecture.svg">
